@@ -6,9 +6,9 @@ Ushbu loyiha **Hayvonlar tasvirlarini tasniflash uchun CNN modeli**ni o‘rganis
 Model aniqligi 98%
 
 #Integratsiya ishlari
-app.py Flask interfeys
-sorter.py rasimlarni tartiblash dasturi
-avto_dataset_yigish_cnn.py model o'zi avtomatik dataset yig'adi ochiq internetdan
+- app.py Flask interfeys
+- sorter.py rasimlarni tartiblash dasturi
+- avto_dataset_yigish_cnn.py model o'zi avtomatik dataset yig'adi ochiq internetdan
 
 
 ## 🖼️ Sinflar
@@ -21,6 +21,13 @@ avto_dataset_yigish_cnn.py model o'zi avtomatik dataset yig'adi ochiq internetda
 
 ## ⚙️ Ishlatish
 
+
+
+#Mualif
+
+Uzbek AI | Nuraliyev Nodirbek | nuraliyevnodirbek2023@gmail.com
+
+
 1. Loyihani klonlash:
 
 ```bash
@@ -29,8 +36,6 @@ cd Hayvonlar-CNN
 
 
 
-#Mualif
 
-Uzbek AI | Nuraliyev Nodirbek | nuraliyevnodirbek2023@gmail.com
 
 
