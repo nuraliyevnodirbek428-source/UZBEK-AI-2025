@@ -6,6 +6,7 @@ Ushbu loyiha **Hayvonlar tasvirlarini tasniflash uchun CNN modeli**ni o‘rganis
 Model aniqligi 98%
 
 ## ⚙️ Integratsiya ishlari
+- cnn.py o'qitish uchun mukamal kod
 - app.py Flask interfeys
 - sorter.py rasimlarni tartiblash dasturi
 - avto_dataset_yigish_cnn.py model o'zi avtomatik dataset yig'adi ochiq internetdan
