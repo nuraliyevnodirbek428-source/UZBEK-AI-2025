@@ -1,0 +1,24 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+opencv-python = "*"
+matplotlib = "*"
+numpy = "*"
+scikit-learn = "*"
+gradio = "*"
+flask = "*"
+pyttsx3 = "*"
+duckduckgo-search = "*"
+icrawler = "*"
+pillow = "*"
+ddgs = "*"
+tqdm = "*"
+tensorflow = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.10"

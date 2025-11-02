@@ -1,0 +1,13 @@
+opencv-python
+matplotlib
+numpy
+scikit-learn
+gradio
+flask
+pyttsx3
+duckduckgo-search
+icrawler
+pillow
+ddgs
+tqdm
+tensorflow

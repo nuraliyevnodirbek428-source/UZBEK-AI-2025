@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ t.title }} v7.1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5a6fd8;
+            --success: #4ade80;
+            --success1: #ffffff;
+            --danger: #f87171;
+            --warning: #fbbf24;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --border: #e5e7eb;
+        }
+        .dark-mode {
+            --primary: #818cf8;
+            --primary-dark: #6366f1;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --dark: #f3f4f6;
+            --light: #1f2937;
+            --gray: #9ca3af;
+            --border: #374151;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .dark-mode { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: var(--light); }
+        .container { max-width: 900px; margin: 0 auto; }
+        .theme-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 1000;
+            background: rgba(255,255,255,0.2); color: white; border: none;
+            width: 50px; height: 50px; border-radius: 50%; cursor: pointer;
+            backdrop-filter: blur(10px); box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s ease; font-size: 1.2rem;
+        }
+        .theme-toggle:hover { transform: scale(1.1); }
+        .lang-switcher {
+            position: fixed; top: 20px; left: 20px; z-index: 1000;
+            display: flex; gap: 8px;
+        }
+        .lang-btn {
+            background: rgba(255,255,255,0.2); color: white; border: none;
+            padding: 8px 12px; border-radius: 8px; cursor: pointer;
+            font-size: 0.9rem; font-weight: 600; transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .lang-btn.active { background: var(--primary); }
+        .lang-btn:hover { background: rgba(255,255,255,0.3); }
+        .header { text-align: center; margin: 40px 0; }
+        .header h1 { font-family: 'Playfair Display', serif; font-size: 2.8rem; margin-bottom: 8px; }
+        .header .subtitle { color: rgba(255,255,255,0.9); font-size: 1.1rem; }
+        .badge {
+            display: inline-block; background: var(--success); color: white;
+            padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600;
+            margin-top: 10px;
+        }
+        .glass {
+            background: rgba(255,255,255,0.15); backdrop-filter: blur(12px);
+            border-radius: 20px; padding: 24px; margin: 20px 0;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2);
+        }
+        .upload-box { text-align: center; }
+        .file-input-wrapper { position: relative; display: inline-block; margin: 20px 0; }
+        #fileInput { position: absolute; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+        .file-label {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 180px; height: 180px; border: 3px dashed rgba(255,255,255,0.6);
+            border-radius: 20px; cursor: pointer; transition: all 0.3s ease;
+            color: white; font-size: 1.1rem;
+        }
+        .file-label:hover { border-color: white; background: rgba(255,255,255,0.1); }
+        .file-label i { font-size: 3rem; margin-bottom: 12px; }
+        .btn-primary {
+            background: var(--primary); color: white; border: none; padding: 14px 32px;
+            border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 10px; transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+        .btn-primary:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        .spinner {
+            width: 18px; height: 18px; border: 2px solid #f3f3f3;
+            border-top: 2px solid #fff; border-radius: 50%;
+            animation: spin 1s linear infinite; display: none;
+        }
+        .hint { color: rgba(255,255,255,0.8); margin-top: 10px; font-size: 0.9rem; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .stat-card {
+            background: rgba(255,255,255,0.2); padding: 16px; border-radius: 16px;
+            text-align: center; color: white;
+        }
+        .stat-card i { font-size: 1.8rem; margin-bottom: 8px; }
+        .stat-card h3 { font-size: 1.8rem; margin: 8px 0 0; }
+        .class-stats h3 { margin-bottom: 16px; text-align: center; color: white; }
+        .class-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .class-item {
+            background: rgba(255,255,255,0.2); padding: 12px; border-radius: 12px;
+            display: flex; justify-content: space-between; color: white; font-weight: 500;
+        }
+        .result-section h2 { text-align: center; color: white; margin-bottom: 20px; }
+        .result-card { display: flex; flex-direction: column; gap: 20px; }
+        @media (min-width: 768px) { .result-card { flex-direction: row; } }
+        .result-image {
+            flex: 1; position: relative; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .result-image img { width: 100%; height: auto; display: block; transition: transform 0.3s ease; }
+        .result-image .overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.7); color: white; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .result-image:hover .overlay { opacity: 1; }
+        .result-image img.zoomed { transform: scale(2); }
+        .result-info { flex: 1; display: flex; flex-direction: column; gap: 16px; color: white; }
+        .prediction, .confidence, .saved-info, .class-index, .timestamp {
+            background: rgba(255,255,255,0.1); padding: 12px 16px; border-radius: 12px;
+        }
+        .label { font-size: 0.9rem; opacity: 0.9; margin-bottom: 4px; }
+        .value { font-size: 1.3rem; font-weight: 600; }
+        .animal { color: var(--success1); }
+        .percent { color: var(--warning); }
+        .path { font-family: monospace; font-size: 0.9rem; word-break: break-all; }
+        .index { font-family: monospace; color: #8b5cf6; }
+        .progress-bar {
+            height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; margin-top: 8px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; background: var(--success); border-radius: 4px;
+            transition: width 0.6s ease;
+        }
+        .btn-secondary {
+            align-self: center; background: rgba(255,255,255,0.2); color: white;
+            border: none; padding: 12px 24px; border-radius: 12px; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; font-weight: 500;
+            transition: all 0.3s ease; margin-top: 16px;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.3); transform: translateY(-2px); }
+        .alert { padding: 12px 16px; border-radius: 12px; margin: 16px 0; display: flex; align-items: center; gap: 8px; }
+        .alert-error { background: var(--danger); color: white; }
+        .fade-in { opacity: 0; transform: translateY(20px); transition: all 0.6s ease; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        .pulse { animation: pulse 2s infinite; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- TIL ALMASHTIRISH -->
+        <div class="lang-switcher">
+            <button class="lang-btn {% if lang == 'uz' %}active{% endif %}" onclick="changeLang('uz')">UZ</button>
+            <button class="lang-btn {% if lang == 'ru' %}active{% endif %}" onclick="changeLang('ru')">RU</button>
+            <button class="lang-btn {% if lang == 'en' %}active{% endif %}" onclick="changeLang('en')">EN</button>
+        </div>
+
+        <!-- DARK MODE -->
+        <button id="themeToggle" class="theme-toggle" title="Dark/Light mode">
+            <i class="fas fa-moon"></i>
+        </button>
+
+        <!-- SARLAVHA -->
+        <header class="header">
+            <h1>{{ t.title }}</h1>
+            <p class="subtitle">{{ t.subtitle }}</p>
+            <div class="badge">v7.1</div>
+        </header>
+
+        <!-- XATOLAR -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <div class="flash-messages">
+              {% for category, message in messages %}
+                <div class="alert alert-error fade-in">
+                  <i class="fas fa-exclamation-triangle"></i> {{ message }}
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <!-- YUKLASH -->
+        <div class="upload-box glass">
+            <form method="post" enctype="multipart/form-data" id="uploadForm">
+                <div class="file-input-wrapper">
+                    <input type="file" name="file" id="fileInput" accept="image/*" required>
+                    <label for="fileInput" class="file-label">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>{{ t.hint.split(' | ')[0] }}</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn-primary pulse" id="analyzeBtn">
+                    <span class="btn-text">{{ t.analyze }}</span>
+                    <span class="spinner"></span>
+                </button>
+            </form>
+            <p class="hint"><small>{{ t.hint }}</small></p>
+        </div>
+
+        <!-- STATISTIKA -->
+        <div class="stats-grid glass fade-in">
+            <div class="stat-card">
+                <i class="fas fa-brain"></i>
+                <div>
+                    <p>{{ t.total }}</p>
+                    <h3>{{ stats.total }}</h3>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-trophy"></i>
+                <div>
+                    <p>{{ t.last }}</p>
+                    <h3>{{ stats.last_predictions|join(', ') or '—' }}</h3>
+                </div>
+            </div>
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <p>{{ t.started }}</p>
+                    <h3>{{ stats.start_time }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- SINFLAR — XATOSIZ loop.index0 -->
+        <div class="class-stats glass fade-in">
+            <h3>{{ t.classes }}</h3>
+            <div class="class-grid">
+                {% for cls in ['kuchuk', 'mushuk', 'ot', 'sichqon', 'sigir'] %}
+                <div class="class-item">
+                    <span class="class-name">{{ t.class_names[loop.index0] }}</span>
+                    <span class="class-count">{{ stats.class_count.get(cls, 0) }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- NATIJA -->
+        {% if result.natija %}
+        <div class="result-section glass fade-in" id="resultSection">
+            <h2>{{ t.result }}</h2>
+            <div class="result-card">
+                <div class="result-image">
+                    <img src="{{ result.img }}" alt="Rasm" class="zoomable">
+                    <div class="overlay">
+                        <i class="fas fa-search-plus"></i>
+                    </div>
+                </div>
+                <div class="result-info">
+                    <div class="prediction">
+                        <p class="label">{{ t.animal }}</p>
+                        <p class="value animal">{{ result.animal_name }}</p>
+                    </div>
+                    <div class="confidence">
+                        <p class="label">{{ t.confidence }}</p>
+                        <p class="value percent">{{ "%.1f"|format(result.foiz) }}%</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: {{ result.foiz }}%"></div>
+                        </div>
+                    </div>
+                    <div class="saved-info">
+                        <p class="label">{{ t.saved }}</p>
+                        <p class="value path">dataset/{{ result.saved }}</p>
+                    </div>
+                    <div class="class-index">
+                        <p class="label">{{ t.index }}</p>
+                        <p class="value index">
+                            {{ ['kuchuk', 'mushuk', 'ot', 'sichqon', 'sigir'].index(result.natija|lower) }}
+                        </p>
+                    </div>
+                    <div class="timestamp">
+                        <i class="fas fa-clock"></i> {{ result.time }}
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-secondary" onclick="speakResult('{{ result.animal_name }}', {{ result.foiz }})">
+                <i class="fas fa-volume-up"></i> {{ t.speak }}
+            </button>
+        </div>
+        {% endif %}
+
+        <P style="text-align: center; color: #fff;">Nuraliyev Nodirbek | UzbAI | v7.1 | 02.11.2025</P>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Til o'zgartirish
+        function changeLang(lang) {
+            window.location.href = `/?lang=${lang}`;
+        }
+
+        // Ovoz (tilga qarab)
+        function speakResult(natija, foiz) {
+            const texts = {
+                'uz': `${natija}! Ishonch: ${foiz.toFixed(1)} foiz.`,
+                'ru': `${natija}! Уверенность: ${foiz.toFixed(1)}%.`,
+                'en': `${natija}! Confidence: ${foiz.toFixed(1)}%.`
+            };
+            const langMap = { 'uz': 'uz-UZ', 'ru': 'ru-RU', 'en': 'en-US' };
+            const text = texts['{{ lang }}'] || texts['en'];
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = langMap['{{ lang }}'] || 'en-US';
+            utterance.rate = 0.9;
+            speechSynthesis.speak(utterance);
+        }
+
+        // Theme
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        if (savedTheme === 'dark') body.classList.add('dark-mode');
+        themeToggle.innerHTML = savedTheme === 'dark' ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDark = body.classList.contains('dark-mode');
+            themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        // Spinner
+        document.getElementById('uploadForm').addEventListener('submit', function() {
+            const btn = document.getElementById('analyzeBtn');
+            btn.querySelector('.btn-text').style.opacity = '0';
+            btn.querySelector('.spinner').style.display = 'inline-block';
+            btn.disabled = true;
+        });
+
+        // Zoom
+        document.querySelectorAll('.zoomable').forEach(img => {
+            img.addEventListener('click', () => img.classList.toggle('zoomed'));
+        });
+
+        // Animatsiya
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
