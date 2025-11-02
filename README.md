@@ -19,11 +19,11 @@ Model aniqligi 98%
 - sichqon
 - sigir
 
-## ⚙️ Ishlatish
 
 
 
-#Mualif
+
+## Mualif
 
 Uzbek AI | Nuraliyev Nodirbek | nuraliyevnodirbek2023@gmail.com
 
@@ -33,9 +33,5 @@ Uzbek AI | Nuraliyev Nodirbek | nuraliyevnodirbek2023@gmail.com
 ```bash
 git clone https://github.com/nuraliyevnodirbek428-source/UZBEK-AI-2025
 cd Hayvonlar-CNN
-
-
-
-
 
 
