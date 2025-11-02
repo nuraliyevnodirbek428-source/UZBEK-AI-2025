@@ -18,5 +18,5 @@ Model aniqligi 98%
 1. Loyihani klonlash:
 
 ```bash
-git clone https://github.com/nuraliyevnodirbek428-source/nuraliyevnodirbek
+git clone https://github.com/nuraliyevnodirbek428-source/UZBEK-AI-2025
 cd Hayvonlar-CNN
