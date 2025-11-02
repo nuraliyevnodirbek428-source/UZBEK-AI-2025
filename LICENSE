@@ -1,24 +1,21 @@
-
----
-
-### 📄 LICENSE (Custom)
-
-```text
-Nodirbek Nuraliyev AI Model License (NN-AI License) - 2025
+MIT License
 
 Copyright (c) 2025 Nodirbek Nuraliyev
 
-1. Ruxsat etilgan foydalanish:
-   - Ushbu model va kodlar faqat ilmiy, o‘rganish, tadqiqot va takomillashtirish maqsadida ishlatilishi mumkin.
-   - Siz modelni o‘rganishingiz, takomillashtirishingiz va yangi variantlarini yaratishingiz mumkin.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-2. Cheklovlar:
-   - Model yoki uning qismlari tijoriy maqsadda ishlatilishi yoki sotilishi taqiqlanadi.
-   - Modelni yoki kodlarni boshqa nom ostida tarqatish yoki sotish mumkin emas.
-   - Har qanday interfeys, dastur yoki integratsiyada foydalanganda model muallifi sifatida “Nuraliyev Nodirbek UZBEK AI” yozuvi ko‘rsatilishi shart.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-3. Mas’uliyat:
-   - Model “AS IS” sharti bilan taqdim etiladi. Muallif har qanday zarar, yo‘qotish yoki natijalar uchun javobgar emas.
-
-4. Mualliflik:
-   - Model va kodlarning muallifi Nodirbek Nuraliyev hisoblanadi.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
