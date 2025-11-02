@@ -20,7 +20,7 @@ Model aniqligi 98%
 - sigir
 
 
-## 🖼️ Sinflar
+## 🖼️ Datasetga yordam
 
 Yaxshilash uchun tayyor hayvonlar nomli dataset yuklangan soni 250 ta o'lchami 256px li har bir sinf da 50 ta rasim 
 
