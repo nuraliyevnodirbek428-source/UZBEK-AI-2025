@@ -21,6 +21,10 @@ Model aniqligi 98%
 - sigir
 
 
+## Sinov
+
+1000 ta begona (real dunyo) rasmdan sinov o‘tkazib, faqat 1–2 ta xato qildi — bu 98–99.8% aniqlik degani!
+
 ## 🖼️ Datasetga yordam
 
 Yaxshilash uchun tayyor hayvonlar nomli dataset yuklangan soni 250 ta o'lchami 256px li har bir sinf da 50 ta rasim 
